@@ -87,18 +87,45 @@ console.log(factotrial(4))
 function isEven(number) {
     return number % 2 === 0;
   }
-  function isOdd(number) {
-    return number % 2 !== 0;
-  }
 
-function toOneRecursively(n) {
+
+function collatz(n) {
     if (n === 1) {
        return 1
-    }
-    if (isEven(n)) 
-        return  toOneRecursively(n / 2)
-       else if (isOdd(n))
-         return toOneRecursively(3 * n + 1)
+    } else if (isEven(n)) {
+        return 1 + collatz(n/2)
+    } else 
+         return 1 + collatz(3 * n + 1)
 }
 
-console.log(toOneRecursively(10))
+console.log(collatz(7))
+
+function power(n,x) {
+    if (x === 0) {
+        return 1
+    } else {
+      return  n * power(n, x - 1)
+    }
+}
+console.log(power(2, 4)) // 16
+console.log(power(2, 3)) // 8
+console.log(power(2, 2)) // 4 
+console.log(power(2, 1)) // 2
+console.log(power(2, 0)) // 1
+
+let allLessThanSeven = all([1,2,6], function(num) {
+    return num < 7
+})
+
+function all(array, callback) {
+    var copy = copy || array.slice()
+    if(copy.length === 0) return true
+    if (callback(copy[0])) {
+        copy.shift()
+        return all(copy, callback)
+    } else {
+        return false
+    }
+}
+
+console.log(allLessThanSeven)

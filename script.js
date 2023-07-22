@@ -334,19 +334,22 @@ function visualizeFibs() {
         fibDiv.style.height = `${thickness}px`;
         fibDiv.style.top = y + 'px';
         fibDiv.style.left = x + 'px';
+        console.log(x - fibNum, x, y, '0')
         fibDiv.style.backgroundColor = 'red'
         x += fibNum ;
       } else if (direction === 1) {
         fibDiv.style.height = fibNum + 'px';
         fibDiv.style.width = `${thickness}px`
         fibDiv.style.top = y + 'px';
-        fibDiv.style.left = (x - 10) + 'px';
+        fibDiv.style.left = x + 'px';
+        console.log(x - fibNum, x, y, '1')
         fibDiv.style.backgroundColor = 'green'
         y += fibNum ;
       } else if (direction === 2) {
         fibDiv.style.width = fibNum + 'px';
         fibDiv.style.height = `${thickness}px`
-        fibDiv.style.top = (y - 10) + 'px';
+        fibDiv.style.top = y + 'px';
+        console.log(x - fibNum,  x, y, '2')
         fibDiv.style.left = (x - fibNum) + 'px';
         fibDiv.style.backgroundColor = 'blue'
         x -= fibNum ;
@@ -355,6 +358,7 @@ function visualizeFibs() {
         fibDiv.style.width = `${thickness}px`
         fibDiv.style.top = (y - fibNum ) + 'px';
         fibDiv.style.left = x + 'px';
+        console.log(x - fibNum, x,  y, '3')
         fibDiv.style.backgroundColor = 'orange'
         y -= fibNum ;
       }
@@ -364,6 +368,39 @@ function visualizeFibs() {
     }
   }
 
+  const unsortedArray = [5,2,1,3,6,4,7,8, 9]
+
+  function sortMerge(array) {
+    //divide the array in two
+    let firstArray = []
+    let secondArray = []
+    let arrayLength = array.length
+
+    let middleIndex = arrayLength / 2  
+    if ( !isEven(array.length)) {
+        middleIndex = (arrayLength -1) / 2
+    }
+    for (let i = 0; i < arrayLength; i++) {
+        if (i <= middleIndex) {
+            firstArray.push(array[i])
+        } else {
+            secondArray.push(array[i])
+        }
+    }   
+    // for (let i = 0; i < middleIndex; i++) {
+    //     firstArray.push(array[i])
+    // }    
+    // for (let i = middleIndex; i < array.length; i++) {
+    //     secondArray.push(array[i])
+    // }
+  
+   console.log(array, firstArray, secondArray)
+  //sort the left half
+  //sort the right half
+  //merge the two
+  }
+
+
 
 
 function onDocumentLoad() {
@@ -372,5 +409,8 @@ function onDocumentLoad() {
     fibs(20)
   console.log(fibsArray)
     visualizeFibs();
+    sortMerge(unsortedArray)
   }
   document.addEventListener('DOMContentLoaded', onDocumentLoad);
+
+

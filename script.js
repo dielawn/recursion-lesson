@@ -39,10 +39,6 @@ function sumRangeRecursive(n, total = 0) {
 console.log(sumRangeRecursive(3))
 
 
-function printChildren(t) {
-
-}
-
 const tree = {
     name: 'John', 
     children: [
@@ -113,19 +109,74 @@ console.log(power(2, 2)) // 4
 console.log(power(2, 1)) // 2
 console.log(power(2, 0)) // 1
 
-let allLessThanSeven = all([1,2,6], function(num) {
-    return num < 7
-})
+const testArray = [7,8,9,2,7,3,4,5,6]
 
-function all(array, callback) {
+let allLessThanValue = all(testArray, function(num, valueToCheck) {
+    return num < valueToCheck
+}, 7)
+
+
+
+
+function all(array, callback, valueToCheck) {
     var copy = copy || array.slice()
+    console.log(copy)
     if(copy.length === 0) return true
-    if (callback(copy[0])) {
+    if (callback(copy[0], valueToCheck)) {
         copy.shift()
-        return all(copy, callback)
+        return all(copy, callback, valueToCheck)
     } else {
         return false
     }
 }
 
-console.log(allLessThanSeven)
+console.log(allLessThanValue)
+
+const newArray = []
+
+function productOfArray(array) {
+   if (array.length === 0) return 1
+   return array.shift() * productOfArray(array)
+}
+
+console.log(productOfArray(testArray))
+
+
+var nestedObject = {
+    data: {
+        info: {
+            stuff: {
+                thing: {
+                    moreStuff: {
+                        magicNumber: 44,
+                        something: 'foo2'
+                    }
+                }
+            }
+        }
+    }
+}
+
+function contains(object, valueToCompare) {
+    for (var key in object) {
+        console.log(key)
+        if (typeof object[key] === 'object') {
+            return contains(object[key], valueToCompare)
+        }
+        if (object[key] === valueToCompare) {
+            console.log(object[key])
+            return true
+        }
+       
+    }
+    return false
+}
+
+
+
+
+let hasIt = contains(nestedObject, 44); // true
+let doesntHaveIt = contains(nestedObject, 'foo'); // false
+console.log(hasIt)
+console.log(doesntHaveIt)
+

@@ -4,26 +4,23 @@
     box-sizing: border-box;
 }
 body {
-    margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .container {
+    margin: 10px;
+    padding: 10px;
     position: relative;
    
 }
 
-
-
-  .fib-div {
+.fib-div {
     background-color: black;
-      position: absolute;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  
-    
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
   }

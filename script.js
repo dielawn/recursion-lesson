@@ -236,24 +236,32 @@ function replicate(times, number) {
 // console.log(replicate(12, 24))
 
 const fibsArray = []
-fibs(8)
 
 function fibs(n) {
-    // if (n <= 0) return [0];
-    if (n === 1) return [0, 1];
-    
-    const fibArray = fibs(n - 1);
-    fibArray.push(fibArray[n - 1] + fibArray[n - 2]);
-    return fibArray;
+  if (n === 0) {
+    fibsArray.push(0);
+    return [0];
   }
-  
+  if (n === 1) {
+    fibsArray.push(1);
+    return [0, 1];
+  }
+
+  const fibNum = fibs(n - 1);
+  const nextFib = fibNum[n - 1] + fibNum[n - 2];
+  fibsArray.push(nextFib);
+  return [...fibNum, nextFib];
+}
+
+
+
 function fibonacciIterative(n) {
     if (n <= 0) return [0];
     if (n === 1) return [0, 1];
   
     const fibArray = [0, 1];
     for (let i = 2; i <= n; i++) {
-      fibArray.push(fibArray[i - 1] + fibArray[i - 2]);
+      fibsArray.push(fibArray[i - 1] + fibArray[i - 2]);
     }
   
     return fibArray;
@@ -261,91 +269,96 @@ function fibonacciIterative(n) {
 
  
 
-//   function visualizeFibs() {
-//     let elementHorizontal = true
-//     let x = 0
-//     let y = 0
+  function visualizeFibs1() {
+    let elementHorizontal = true
+    let x = 0
+    let y = 0
 
 
-//     for (const fibNum of fibsArray[0]) {
-//         const fibDiv = document.createElement('div')
-//         fibDiv.classList.add('fib-div')
-//         fibDiv.style.position = 'absolute'
-//         fibDiv.style.backgroundColor = 'black'
-//         let elementLength = fibNum * 10
+    for (const fibNum of fibsArray) {
+        const fibDiv = document.createElement('div')
+        fibDiv.classList.add('fib-div')
+        fibDiv.style.position = 'absolute'
+        fibDiv.style.backgroundColor = 'black'
+        let elementLength = fibNum * 10
         
 
-//         if( elementHorizontal) {
-//             fibDiv.style.height = '5px'
-//             fibDiv.style.width = elementLength + 'px'   
-//             fibDiv.style.top = y + 'px'
-//             fibDiv.style.left = x + 'px'       
-//             x += elementLength
+        if( elementHorizontal) {
+            fibDiv.style.height = '5px'
+            fibDiv.style.width = elementLength + 'px'   
+            fibDiv.style.top = y + 'px'
+            fibDiv.style.left = x + 'px'       
+            x += elementLength
        
             
-//         } else {
-//             fibDiv.style.width = '5px'
-//             fibDiv.style.height = elementLength + 'px'
-//             fibDiv.style.top = y + 'px'
-//             fibDiv.style.left = x + 'px'
-//             y += elementLength
+        } else {
+            fibDiv.style.width = '5px'
+            fibDiv.style.height = elementLength + 'px'
+            fibDiv.style.top = y + 'px'
+            fibDiv.style.left = x + 'px'
+            y += elementLength
           
           
-//         }
+        }
 
-//         elementHorizontal = !elementHorizontal
-//         containerDiv.appendChild(fibDiv)   
-//    }
+        elementHorizontal = !elementHorizontal
+        containerDiv.appendChild(fibDiv)   
+   }
  
-//   }
+  }
 
-//   visualizeFibs()
+  visualizeFibs1()
 
 
-function visualizeFibs(num) {
-    const numOfFibs = num; // Replace with the number of Fibonacci numbers you want to generate.
-    fibs(numOfFibs);
+function visualizeFibs() { 
+    
+    
 
     let x = 0;
     let y = 0;
-    let direction = 0; // 0 = right, 1 = down, 2 = left, 3 = up
-    console.log(direction)
+    let direction = 4 // 0 = right, 1 = down, 2 = left, 3 = up
+    console.log(fibsArray)
     for (let i = 0; i < fibsArray.length; i++) {
       const fibNum = fibsArray[i];
+     
       const fibDiv = document.createElement('div');
+      fibDiv.id = `fibDiv${i}`
       fibDiv.classList.add('fib-div');
-      
-      direction++
+      let thickness = 5
+      direction + 1
       if(direction === 4) {
         direction = 0
       }
-       console.log(direction)
       if (direction === 0) {
-        fibDiv.style.width = fibNum * 10 + 'px';
-        fibDiv.style.height = '10px';
+        fibDiv.style.width = fibNum + 'px';
+        fibDiv.style.height = `${thickness}px`;
         fibDiv.style.top = y + 'px';
         fibDiv.style.left = x + 'px';
-        x += fibNum * 10;
+        fibDiv.style.backgroundColor = 'red'
+        x += fibNum ;
       } else if (direction === 1) {
-        fibDiv.style.height = fibNum * 10 + 'px';
-        fibDiv.style.width = '10px';
+        fibDiv.style.height = fibNum + 'px';
+        fibDiv.style.width = `${thickness}px`
         fibDiv.style.top = y + 'px';
         fibDiv.style.left = (x - 10) + 'px';
-        y += fibNum * 10;
+        fibDiv.style.backgroundColor = 'green'
+        y += fibNum ;
       } else if (direction === 2) {
-        fibDiv.style.width = fibNum * 10 + 'px';
-        fibDiv.style.height = '10px';
+        fibDiv.style.width = fibNum + 'px';
+        fibDiv.style.height = `${thickness}px`
         fibDiv.style.top = (y - 10) + 'px';
-        fibDiv.style.left = (x - fibNum * 10) + 'px';
-        x -= fibNum * 10;
+        fibDiv.style.left = (x - fibNum) + 'px';
+        fibDiv.style.backgroundColor = 'blue'
+        x -= fibNum ;
       } else if (direction === 3) {
-        fibDiv.style.height = fibNum * 10 + 'px';
-        fibDiv.style.width = '10px';
-        fibDiv.style.top = y + 'px';
+        fibDiv.style.height = fibNum + 'px';
+        fibDiv.style.width = `${thickness}px`
+        fibDiv.style.top = (y - fibNum ) + 'px';
         fibDiv.style.left = x + 'px';
-        y -= fibNum * 10;
+        fibDiv.style.backgroundColor = 'orange'
+        y -= fibNum ;
       }
-
+    
       containerDiv.appendChild(fibDiv);
       direction = (direction + 1) % 4;
     }
@@ -356,6 +369,8 @@ function visualizeFibs(num) {
 function onDocumentLoad() {
     // Your initialization code goes here
     console.log('Document is fully loaded.');
-    visualizeFibs(8);
+    fibs(20)
+  console.log(fibsArray)
+    visualizeFibs();
   }
   document.addEventListener('DOMContentLoaded', onDocumentLoad);

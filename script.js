@@ -368,65 +368,110 @@ function visualizeFibs() {
     }
   }
 
-  const unsortedArray = [5,2,1,3,6,4,7,8, 9]
+  const unsortedArray = [359, 69, 0, 45, 345, 346, 347, 343, 344, 345, 5,2,1,3,6, 1000000, 345, 4,7,8, 9, -12]
 
   function sortMerge(array) {
-    let firstArray = []
-    let secondArray = []
-    
-    //divide the array in two
-    divideArray(array, firstArray, secondArray)
-
-  //sort the left half
-  let sortedArray = []
-  for (let i = 0; i < firstArray.length; i++) {
-    let firstItem = firstArray[i]
-    let nextIndex = i + 1
-    console.log(`thisIndex: ${i} nextIndex: ${nextIndex}`)
-    console.log(`firstArrayLength: ${firstArray.length}`)    
-    if (nextIndex === firstArray.length) {
-        nextIndex = 0
-    }
-    let nextItem = firstArray[nextIndex]
-   sortedArray = sort(firstItem, nextItem)
-    console.log(firstItem, nextItem)
    
-    console.log(sortedArray)
-  }
-
-  //sort the right half
+    if (array.length <= 1) {
+        return array;
+      }
+       //divide the array in two
+    const middleIndex = Math.floor(array.length / 2)  
+    const firstArray = array.slice(0, middleIndex)
+    const secondArray = array.slice(middleIndex)
+    
+  //sort the left half
+ const firstSorted = sortMerge(firstArray)
+   //sort the right half
+ const secondSorted = sortMerge(secondArray)
   //merge the two
+ return mergeArrays(firstSorted, secondSorted)
   }
 
-  function divideArray(array, firstHalf, secondHalf) {
+  function mergeArrays(left, right) {
+    const merged = []
+    let firstIndex = 0
+    let secondIndex = 0
 
-    let middleIndex = array.length / 2  
-    if ( !isEven(array.length)) {
-        middleIndex = (array.length -1) / 2
-    }
-    for (let i = 0; i < array.length; i++) {
-        if (i < middleIndex) {
-            firstHalf.push(array[i])
-        } else {
-            secondHalf.push(array[i])
-        }
-    }   
-   console.log(array, firstHalf, secondHalf)
-   return 
+    while (firstIndex < left.length && secondIndex < right.length) {
+       if (left[firstIndex] < right[secondIndex]) {
+        merged.push(left[firstIndex])
+        firstIndex++
+       } else {
+        merged.push(right[secondIndex])
+        secondIndex++
+       }
+        
+    } 
+   merged.push(...left.slice(firstIndex))
+   merged.push(...right.slice(secondIndex))
+
+   return merged
+   
   }
 
   function sort(a, b) {
     let sortedArray = []
+
     if (a <= b) {
         sortedArray.push(a, b)
     } else {
         sortedArray.push(b, a)
     }
+    unsortedArray.splice(i, 2, sortedArray[0], sortedArray[1])
+    console.log(unsortedArray)
     return sortedArray
   }
 
+const mergeSort = (arr) => {
+    if (arr.length <= 1) {
+        return arr
+    }
+    const middleIndex = Math.floor(arr.length / 2) 
+    const leftHalf = arr.slice(0, middleIndex)
+    const rightdHalf = arr.slice(middleIndex)
+    console.log('unsorted: ',leftHalf, rightdHalf)
+
+    const leftSorted = mergeSort(leftHalf)
+    const righSorted = mergeSort(rightdHalf)
+    console.log('sorted: ', leftSorted, righSorted)
+
+    return merge(leftSorted, righSorted)
+}
+
+const merge = (left, right) => {
+    const merged = []
+    let leftIndex = 0
+    let rightIndex = 0
+    console.log('Left: ', left, 'Right: ', right)
+
+    while (leftIndex < left.length && rightIndex < right.length) {
+        if (left[leftIndex] < right[rightIndex]) {
+            merged.push(left[leftIndex])
+            leftIndex++
+        } else {
+            merged.push(right[rightIndex])
+            rightIndex++
+        }
+    }
+    merged.push(...left.slice(leftIndex));
+    merged.push(...right.slice(rightIndex));
+  
+    return merged;
+}
+
+const isSorted = (arr) => {
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] < arr[i - 1]) {
+            console.log(arr[i], arr[i - 1])
+            return false
+        }
+    }
+    return true
+}
 
 
+  
 
 function onDocumentLoad() {
     // Your initialization code goes here
@@ -434,8 +479,20 @@ function onDocumentLoad() {
     fibs(20)
   console.log(fibsArray)
     visualizeFibs();
-    sortMerge(unsortedArray)
+  
+    const sortedArray = sortMerge(unsortedArray)
+console.log(unsortedArray)    
+console.log(sortedArray)
+if (isSorted(sortedArray)) {
+    console.log(`Success! - unsorted: ${unsortedArray} sorted: ${sortedArray}`)
+} else {
+    console.log(`Failed - unsorted: ${unsortedArray} sorted: ${sortedArray}`)
+}
   }
   document.addEventListener('DOMContentLoaded', onDocumentLoad);
 
+
+function fCCMergeSort(arr) {
+
+}
 

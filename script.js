@@ -371,33 +371,58 @@ function visualizeFibs() {
   const unsortedArray = [5,2,1,3,6,4,7,8, 9]
 
   function sortMerge(array) {
-    //divide the array in two
     let firstArray = []
     let secondArray = []
-    let arrayLength = array.length
+    
+    //divide the array in two
+    divideArray(array, firstArray, secondArray)
 
-    let middleIndex = arrayLength / 2  
-    if ( !isEven(array.length)) {
-        middleIndex = (arrayLength -1) / 2
-    }
-    for (let i = 0; i < arrayLength; i++) {
-        if (i <= middleIndex) {
-            firstArray.push(array[i])
-        } else {
-            secondArray.push(array[i])
-        }
-    }   
-    // for (let i = 0; i < middleIndex; i++) {
-    //     firstArray.push(array[i])
-    // }    
-    // for (let i = middleIndex; i < array.length; i++) {
-    //     secondArray.push(array[i])
-    // }
-  
-   console.log(array, firstArray, secondArray)
   //sort the left half
+  let sortedArray = []
+  for (let i = 0; i < firstArray.length; i++) {
+    let firstItem = firstArray[i]
+    let nextIndex = i + 1
+    console.log(`thisIndex: ${i} nextIndex: ${nextIndex}`)
+    console.log(`firstArrayLength: ${firstArray.length}`)    
+    if (nextIndex === firstArray.length) {
+        nextIndex = 0
+    }
+    let nextItem = firstArray[nextIndex]
+   sortedArray = sort(firstItem, nextItem)
+    console.log(firstItem, nextItem)
+   
+    console.log(sortedArray)
+  }
+
   //sort the right half
   //merge the two
+  }
+
+  function divideArray(array, firstHalf, secondHalf) {
+
+    let middleIndex = array.length / 2  
+    if ( !isEven(array.length)) {
+        middleIndex = (array.length -1) / 2
+    }
+    for (let i = 0; i < array.length; i++) {
+        if (i < middleIndex) {
+            firstHalf.push(array[i])
+        } else {
+            secondHalf.push(array[i])
+        }
+    }   
+   console.log(array, firstHalf, secondHalf)
+   return 
+  }
+
+  function sort(a, b) {
+    let sortedArray = []
+    if (a <= b) {
+        sortedArray.push(a, b)
+    } else {
+        sortedArray.push(b, a)
+    }
+    return sortedArray
   }
 
 

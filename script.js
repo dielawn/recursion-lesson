@@ -410,18 +410,7 @@ function visualizeFibs() {
    
   }
 
-  function sort(a, b) {
-    let sortedArray = []
-
-    if (a <= b) {
-        sortedArray.push(a, b)
-    } else {
-        sortedArray.push(b, a)
-    }
-    unsortedArray.splice(i, 2, sortedArray[0], sortedArray[1])
-    console.log(unsortedArray)
-    return sortedArray
-  }
+const alphaArray = ['bob', 'alice', 'dennis', 'cindy', 'roberto', 'megan', 'gina', 'alex', 12, 7]
 
 const mergeSort = (arr) => {
     if (arr.length <= 1) {
@@ -473,26 +462,110 @@ const isSorted = (arr) => {
 
   
 
+
+function reverseArray(arr) {
+    let newArr = []
+    for (let i = arr.length - 1; i >= 0; i--) {
+        newArr.push(arr[i])
+    }
+    return newArr
+}
+
+function multiplyAll(arr1, arr2) {
+    if (arr1.length !== arr2.length) return undefined
+    let total = 0
+    for (let i of arr1) {
+        for (let j of arr2) {
+            total += i * j
+        }
+    }
+    return total
+}
+
+const firstArray = [1, 2, 3, 4]
+const secondArray = [5, 3, 1, 8]
+
+
+function logTime(arr) {
+    let numberOfLoops = 0
+    for (let i = 1; i < arr.length; i *= 2) {
+        numberOfLoops++
+    }
+    return numberOfLoops
+}
+
+let loopsA = logTime([1]) // 0 loops
+let loopsB = logTime([1, 2]) // 1 loop
+let loopsC = logTime([1, 2, 3, 4]) // 2 loops
+let loopsD = logTime([1, 2, 3, 4, 5, 6, 7, 8]) // 3 loops
+let loopsE = logTime(Array(16)) // 4 loops
+
+// don't use this it crashes the browser if n > 1
+// function linearithnic(n) {
+//     for (let i = 0; i < n; i++) {
+//         for (let j = 0; j < n; j = j * 2) {
+//             console.log('Hello')
+//         } 
+//     }
+// }
+
+const fruits = ["apple", "strawberry", "watermelon"]
+
+function printAndPair(arr) {
+    const totalPairs = arr.length * arr.length
+    console.log(`Estimated paired elements length: ${totalPairs}`)
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length; j++) console.log(`${arr[i]} - ${arr[j]}`)
+    }
+}
+
+function sumArr(arr) {
+    const copyArr = arr.slice()
+    let sum = 0
+    copyArr.forEach((number) => {
+        sum += number
+    })
+    return sum
+}
+
+
+//CHECK FUNCTION SPEED
+const t0 = performance.now()
+// Add function here...
+const t1 = performance.now()
+
+console.log("The function took: " + (t1 - t0) + " milliseconds.")
+
+
+
+
+
 function onDocumentLoad() {
+
     // Your initialization code goes here
     console.log('Document is fully loaded.');
     fibs(20)
   console.log(fibsArray)
     visualizeFibs();
-  
+    console.log(unsortedArray) 
     const sortedArray = sortMerge(unsortedArray)
-console.log(unsortedArray)    
-console.log(sortedArray)
+    console.log(sortedArray)
+    const backwardSortedArray = reverseArray(sortedArray)
+    console.log(backwardSortedArray)
+   
+
+
 if (isSorted(sortedArray)) {
     console.log(`Success! - unsorted: ${unsortedArray} sorted: ${sortedArray}`)
 } else {
     console.log(`Failed - unsorted: ${unsortedArray} sorted: ${sortedArray}`)
 }
+
+console.log(multiplyAll(firstArray, secondArray))
+console.log(loopsE)
+
+printAndPair(fruits)
+
+console.log(sumArr([1,200]))
   }
   document.addEventListener('DOMContentLoaded', onDocumentLoad);
-
-
-function fCCMergeSort(arr) {
-
-}
-

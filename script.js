@@ -528,6 +528,25 @@ function sumArr(arr) {
     return sum
 }
 
+const arrayOneZero = [11, 1, 23, 8, 14, 30, 9, 6, 17, 22, 28, 25, 15, 7, 10, 19]
+const binaryArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+const binarySearch = (arr, target) => {
+    
+    // repeat until array is size 0
+    if(arr.length <= 0) return 'Target not found'
+    //calculate middle of array
+    const middleIndex = Math.floor(arr.length / 2)
+    console.log(arr[middleIndex])
+    console.log(arr[target])
+    console.log(arr[middleIndex] < arr[target])
+    //if target is at the middle stop
+    if (arr[middleIndex] === arr[target]) return `Target found at ${arr[middleIndex]}`
+    //otherwise if the target is less then middle, repeat, changing the end point to be just to the left of the middle
+    else if(arr[target] < arr[middleIndex]) return binarySearch(arr.slice(0, middleIndex), middleIndex) 
+    //otherwise if the target is greater than the middle, repeat, changing the start point to be just to right of the middle
+    else if(arr[target] > arr[middleIndex]) return binarySearch(arr.slice(middleIndex), middleIndex)
+
+}
 
 //CHECK FUNCTION SPEED
 const t0 = performance.now()
@@ -567,5 +586,8 @@ console.log(loopsE)
 printAndPair(fruits)
 
 console.log(sumArr([1,200]))
+const sorted = mergeSort(arrayOneZero)
+console.log(binarySearch(sorted, 10))
+
   }
   document.addEventListener('DOMContentLoaded', onDocumentLoad);

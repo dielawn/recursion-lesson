@@ -535,17 +535,37 @@ const binarySearch = (arr, target) => {
     // repeat until array is size 0
     if(arr.length <= 0) return 'Target not found'
     //calculate middle of array
-    const middleIndex = Math.floor(arr.length / 2)
-    console.log(arr[middleIndex])
-    console.log(arr[target])
-    console.log(arr[middleIndex] < arr[target])
+    let middleIndex = Math.floor(arr.length / 2)
     //if target is at the middle stop
-    if (arr[middleIndex] === arr[target]) return `Target found at ${arr[middleIndex]}`
+    if (arr[middleIndex] === target) return `Target found at index ${middleIndex}`
     //otherwise if the target is less then middle, repeat, changing the end point to be just to the left of the middle
-    else if(arr[target] < arr[middleIndex]) return binarySearch(arr.slice(0, middleIndex), middleIndex) 
+    else if(target < arr[middleIndex]) {
+        return binarySearch(arr.slice(0, (middleIndex - 1)), target) 
+    }
     //otherwise if the target is greater than the middle, repeat, changing the start point to be just to right of the middle
-    else if(arr[target] > arr[middleIndex]) return binarySearch(arr.slice(middleIndex), middleIndex)
+    else if(target > arr[middleIndex]) {
 
+        return binarySearch(arr.slice((middleIndex + 1)), target)
+    }
+
+}
+
+const binarySearchIteration = (arr, target) => {
+    
+   let left = 0
+   let right = arr.length -1
+    // repeat until array is size 0
+   while(left <= right) {
+    const middleIndex = Math.floor((left + right) / 2)
+    const middleValue = arr[middleIndex]
+    //if target is at the middle stop
+    if (middleValue === target) return `Target found at index ${middleIndex}`
+     //otherwise if the target is less then middle, repeat, changing the end point to be just to the left of the middle
+    else if (target < middleValue) right = middleIndex - 1
+     //otherwise if the target is greater than the middle, repeat, changing the start point to be just to right of the middle
+    else left = middleIndex + 1
+   }
+    return 'Target not found'
 }
 
 //CHECK FUNCTION SPEED
@@ -587,7 +607,8 @@ printAndPair(fruits)
 
 console.log(sumArr([1,200]))
 const sorted = mergeSort(arrayOneZero)
-console.log(binarySearch(sorted, 10))
+console.log(binarySearchIteration(sorted, 23))
+console.log(binarySearch(sorted, 23))
 
   }
   document.addEventListener('DOMContentLoaded', onDocumentLoad);
